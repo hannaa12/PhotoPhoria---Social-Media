@@ -1,5 +1,4 @@
 import { z } from "zod";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
 import {
@@ -58,7 +57,7 @@ const SignupForm = () => {
       return toast({ title: "Sign in failed. Please try again." });
     }
 
-    
+
   }
 
   return (
