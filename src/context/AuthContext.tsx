@@ -33,6 +33,8 @@ type IContextType = {
 
 const AuthContext = createContext<IContextType>(INITIAL_STATE);
 
+
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const [user, setUser] = useState<IUser>(INITIAL_USER);
@@ -66,18 +68,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  // useEffect(() => {
-  //   const cookieFallback = localStorage.getItem("cookieFallback");
-  //   if (
-  //     cookieFallback === "[]" ||
-  //     cookieFallback === null ||
-  //     cookieFallback === undefined
-  //   ) {
-  //     navigate("/sign-in");
-  //   }
+  useEffect(() => {
+    const cookieFallback = localStorage.getItem("cookieFallback");
+    if (
+      cookieFallback === "[]" ||
+      cookieFallback === null ||
+      cookieFallback === undefined
+    ) {
+      navigate("/sign-in");
+    }
 
-  //   checkAuthUser();
-  // }, []);
+    checkAuthUser();
+  }, []);
 
   const value = {
     user,
