@@ -34,6 +34,7 @@ const SigninForm = () => {
 
     if (!session) {
       toast({ title: "Login failed. Please try again." });
+      console.log("session probsss")
       
       return;
     }
@@ -46,7 +47,7 @@ const SigninForm = () => {
       navigate("/");
     } else {
       toast({ title: "Login failed. Please try again.", });
-      
+      console.log("Auth probsss")
       return;
     }
   };

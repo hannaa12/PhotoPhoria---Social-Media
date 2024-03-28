@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,22 +26,23 @@ const SignupForm = () => {
   const navigate = useNavigate();
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
+    // 1. Define your form.
+    const form = useForm<z.infer<typeof SignupValidation>>({
+      resolver: zodResolver(SignupValidation),
+      defaultValues: {
+        name: "",
+        username: "",
+        email: "",
+        password: "",
+      },
+    });
+
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } =
     useCreateUserAccount();
 
   const { mutateAsync: signInAccount, isPending: isSingingIn } =
     useSignInAccount();
 
-  // 1. Define your form.
-  const form = useForm<z.infer<typeof SignupValidation>>({
-    resolver: zodResolver(SignupValidation),
-    defaultValues: {
-      name: "",
-      username: "",
-      email: "",
-      password: "",
-    },
-  });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof SignupValidation>) {
@@ -50,6 +50,7 @@ const SignupForm = () => {
     const newUser = await createUserAccount(values);
 
     if (!newUser) {
+      console.log("newUser probsss")
       return toast({ title: "Sign up failed. Please try again." });
     }
     const session = await signInAccount({
@@ -57,6 +58,7 @@ const SignupForm = () => {
       password: values.password,
     });
     if (!session) {
+      console.log("session probsss")
       return toast({ title: "Sign in failed. Please try again." });
     }
 
@@ -140,7 +142,7 @@ const SignupForm = () => {
             )}
           />
           <Button type="submit" className="shad-button_primary">
-            {isCreatingAccount ? (
+            {isCreatingAccount || isUserLoading || isSingingIn ? (
               <div className="flex-center gap-2">
                 <Loader />
                 Loading...
