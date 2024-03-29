@@ -2,8 +2,8 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared/Loader";
-import { PostStats } from "@/components/shared/PostStats";
 import { GridPostList } from "@/components/shared/GridPostList";
+import { PostStats } from "@/components/shared/PostStats";
 
 import {
   useGetPostById,
